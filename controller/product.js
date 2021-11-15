@@ -64,6 +64,20 @@ module.exports.getMostWantedProducts = (req, res) => {
     .catch((err) => console.log(err));
 };
 
+module.exports.getSuggestedProducts = (req, res) => {
+  const limit = Number(req.query.limit) || 0;
+  const sort = req.query.sort == "desc" ? -1 : 1;
+  Product.find({
+    price: { $lt: 20000 },
+  })
+    .limit(limit)
+    .sort({ id: sort })
+    .then((products) => {
+      res.json(products);
+    })
+    .catch((err) => console.log(err));
+};
+
 module.exports.getRelatedProducts = (req, res) => {
   const id = req.params.id;
   const limit = Number(req.query.limit) || 0;

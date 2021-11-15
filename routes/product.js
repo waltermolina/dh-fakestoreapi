@@ -4,6 +4,7 @@ const product = require("../controller/product");
 
 router.get("/", product.getAllProducts);
 router.get("/mostwanted", product.getMostWantedProducts);
+router.get("/suggested", product.getSuggestedProducts);
 router.get("/:id/related", product.getRelatedProducts);
 //router.get("/categories", product.getProductCategories);
 //router.get("/category/:category", product.getProductsInCategory);
