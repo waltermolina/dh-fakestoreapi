@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const schema = mongoose.Schema
+const schema = mongoose.Schema;
+const Store = require('./store')
 
 const productSchema = new schema({
     title: {
@@ -17,7 +18,12 @@ const productSchema = new schema({
     mostwanted: {
         type: Boolean,
         default: false
-    }
+    },
+    store:{
+        type:schema.Types.ObjectId,
+        ref:Store,
+        required:false
+    },
 })
 
 module.exports = mongoose.model('product', productSchema)

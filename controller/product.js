@@ -16,7 +16,6 @@ module.exports.getAllProducts = (req, res) => {
 
 module.exports.getProduct = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   Product.findById(id)
     //.select(["-_id"])
     .then((product) => {
@@ -111,14 +110,16 @@ module.exports.addProduct = (req, res) => {
     const product = new Product({
       title: req.body.title,
       price: req.body.price,
-      description: req.body.description,
-      image: req.body.image,
-      category: req.body.category,
-      mostwanted: req.body.mostwanted,
+      description: req.body.description || null,
+      image: req.body.image || null,
+      gallery: req.body.gallery || [],
+      category: req.body.category || null,
+      mostwanted: req.body.mostwanted || false,
+      store: req.body.store || null
     });
     product.save()
       .then(product => res.json(product))
-      .catch(err => console.log(err))
+      .catch(err => res.json(err))
   }
 };
 
@@ -129,14 +130,26 @@ module.exports.editProduct = (req, res) => {
       message: "something went wrong! check your sent data",
     });
   } else {
-    res.json({
-      id: req.params.id,
-      title: req.body.title,
-      price: req.body.price,
-      description: req.body.description,
-      image: req.body.image,
-      category: req.body.category,
-    });
+    Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.description || null,
+        image: req.body.image || null,
+        gallery: req.body.gallery || [],
+        category: req.body.category || null,
+        mostwanted: req.body.mostwanted || false,
+        store: req.body.store || null
+      },
+      (err, data) => {
+        if (err) {
+          res.json(err);
+        }
+        else {
+          res.json(data);
+        }
+      })
   }
 };
 
@@ -144,16 +157,17 @@ module.exports.deleteProduct = (req, res) => {
   if (req.params.id == null) {
     res.json({
       status: "error",
-      message: "cart id should be provided",
+      message: "product id should be provided",
     });
   } else {
-    Product.findOne({
-      id: req.params.id,
+
+    Product.findByIdAndDelete(req.params.id, (err, data) => {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        res.json(data);
+      }
     })
-      .select(["-_id"])
-      .then((product) => {
-        res.json(product);
-      })
-      .catch((err) => console.log(err));
   }
 };

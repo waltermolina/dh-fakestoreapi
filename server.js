@@ -13,6 +13,7 @@ const port = 6400;
 
 //routes
 const productRoute = require("./routes/product");
+const storeRoute = require("./routes/store");
 const homeRoute = require("./routes/home");
 //const cartRoute = require("./routes/cart");
 //const userRoute = require("./routes/user");
@@ -33,6 +34,7 @@ app.disable("view cache");
 
 app.use("/", homeRoute);
 app.use("/api/products", productRoute);
+app.use("/api/stores", storeRoute);
 //app.use("/carts", cartRoute);
 //app.use("/users", userRoute);
 //app.use("/auth", authRoute);
@@ -44,7 +46,7 @@ mongoose
   .connect(process.env.DB_STRING, { useNewUrlParser: true })
   .then(() => {
     app.listen(process.env.PORT || port, () => {
-      console.log("connect", process.env.PORT || port);
+      console.log("app running on port", process.env.PORT || port);
     });
   })
   .catch((err) => {
