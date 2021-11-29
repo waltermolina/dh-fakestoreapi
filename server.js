@@ -32,7 +32,7 @@ app.set("views", "views");
 
 app.disable("view cache");
 
-app.use("/", homeRoute);
+app.use("/", (req,res) => {res.sendFile(path.join(__dirname, "./public/simpledocs.html"))});
 app.use("/api/products", productRoute);
 app.use("/api/stores", storeRoute);
 //app.use("/carts", cartRoute);

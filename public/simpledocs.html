@@ -1,0 +1,197 @@
+<h1 id="dhfakestoreapi">DHFakeStoreAPI</h1>
+<p>This API is a fork from <a href="https://fakestoreapi.com">FakeStoreAPI</a> a free online REST API that you can use whenever you need Pseudo-real data for
+your e-commerce or shopping website without running any server-side code.
+It&#39;s awesome for teaching purposes, sample codes, tests and etc.</p>
+<p>You can visit in detail docs in <a href="https://fakestoreapi.com">FakeStoreAPI</a> for more information.</p>
+<h2 id="why-">Why?</h2>
+<p>When I wanted to design a shopping website prototype and needed fake data, I had to
+use lorem ipsum data or create a JSON file from the base. I didn&#39;t find any online free web service
+to return semi-real shop data instead of lorem ipsum data.
+so I decided to create this simple web service with NodeJs(express) and MongoDB as a database.</p>
+<h2 id="resources">Resources</h2>
+<p>There are 2 main resources need in shopping prototypes:</p>
+<ul>
+<li>Products <a href="https://fakestoreapi.com/products">https://fakestoreapi.com/products</a></li>
+<li>Atores <a href="https://fakestoreapi.com/stores">https://fakestoreapi.com/stores</a></li>
+</ul>
+<h3 id="new-rating-includes-rate-and-count-has-been-added-to-each-product-object-">New! &quot;Rating&quot; (includes rate and count) has been added to each product object!</h3>
+<h2 id="how-to">How to</h2>
+<p>you can fetch data with any kind of methods you know(fetch API, Axios, jquery ajax,...)</p>
+<h3 id="get-all-products">Get all products</h3>
+<pre><code class="lang-js">fetch(<span class="hljs-string">"https://fakestoreapi.com/products"</span>)
+  .<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(res)</span> =&gt;</span> res.json())
+  .<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(json)</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(json));
+</code></pre>
+<h3 id="get-a-single-product">Get a single product</h3>
+<pre><code class="lang-js">fetch(<span class="hljs-string">"https://fakestoreapi.com/products/6191cb5ec654f145d4326b85"</span>)
+  .<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(res)</span> =&gt;</span> res.json())
+  .<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(json)</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(json));
+</code></pre>
+<h3 id="add-new-product">Add new product</h3>
+<pre><code class="lang-js">fetch(<span class="hljs-string">"https://fakestoreapi.com/products"</span>, {
+  <span class="hljs-keyword">method</span>: <span class="hljs-string">"POST"</span>,
+  body: <span class="hljs-type">JSON</span>.stringify({
+    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Xiaomi Mi Smart Band 6"</span>,
+    <span class="hljs-string">"price"</span>: <span class="hljs-number">5929</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"La Mi Band tiene todo lo necesario para acompañarte en tu rutina."</span>,
+    <span class="hljs-string">"image"</span>: <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+    <span class="hljs-string">"gallery"</span>: [<span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,<span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp"</span>,<span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"</span> ],
+    <span class="hljs-string">"category"</span>: <span class="hljs-string">"Electrónica"</span>,
+    <span class="hljs-string">"mostwanted"</span>: <span class="hljs-literal">false</span>
+  }),
+})
+  .<span class="hljs-keyword">then</span>((res) =&gt; res.json<span class="hljs-literal">()</span>)
+  .<span class="hljs-keyword">then</span>((json) =&gt; console.log(json));
+
+/* will return
+{
+  <span class="hljs-string">"gallery"</span>: [
+    <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+    <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp"</span>,
+    <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"</span>
+  ],
+  <span class="hljs-string">"mostwanted"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-string">"_id"</span>: <span class="hljs-string">"61a429e8dc4c574aa8c6bde7"</span>,
+  <span class="hljs-string">"title"</span>: <span class="hljs-string">"Xiaomi Mi Smart Band 6"</span>,
+  <span class="hljs-string">"price"</span>: <span class="hljs-number">5929</span>,
+  <span class="hljs-string">"description"</span>: <span class="hljs-string">"La Mi Band tiene todo lo necesario para acompañarte en tu rutina."</span>,
+  <span class="hljs-string">"image"</span>: <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+  <span class="hljs-string">"category"</span>: <span class="hljs-string">"Electrónica"</span>,
+  <span class="hljs-string">"store"</span>: null,
+  <span class="hljs-string">"__v"</span>: <span class="hljs-number">0</span>
+}
+*/
+</code></pre>
+<h3 id="updating-a-product">Updating a product</h3>
+<pre><code class="lang-js">fetch(<span class="hljs-string">"https://fakestoreapi.com/products/61a429e8dc4c574aa8c6bde7"</span>, {
+  <span class="hljs-keyword">method</span>: <span class="hljs-string">"PUT"</span>,
+  body: <span class="hljs-type">JSON</span>.stringify({
+    <span class="hljs-string">"gallery"</span>: [
+      <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+      <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp"</span>,
+      <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"</span>
+    ],
+    <span class="hljs-string">"mostwanted"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"_id"</span>: <span class="hljs-string">"61a429e8dc4c574aa8c6bde7"</span>,
+    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Xiaomi Mi Smart Band 6"</span>,
+    <span class="hljs-string">"price"</span>: <span class="hljs-number">5929</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"La Mi Band tiene todo lo necesario para acompañarte en tu rutina."</span>,
+    <span class="hljs-string">"image"</span>: <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+    <span class="hljs-string">"category"</span>: <span class="hljs-string">"Electrónica"</span>,
+    <span class="hljs-string">"store"</span>: <span class="hljs-string">"61a42ba51648966e9473df6f"</span>
+  }),
+})
+  .<span class="hljs-keyword">then</span>((res) =&gt; res.json<span class="hljs-literal">()</span>)
+  .<span class="hljs-keyword">then</span>((json) =&gt; console.log(json));
+
+/* will return
+{
+  <span class="hljs-string">"gallery"</span>: [
+    <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+    <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp"</span>,
+    <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"</span>
+  ],
+  <span class="hljs-string">"mostwanted"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-string">"_id"</span>: <span class="hljs-string">"61a429e8dc4c574aa8c6bde7"</span>,
+  <span class="hljs-string">"title"</span>: <span class="hljs-string">"Xiaomi Mi Smart Band 6"</span>,
+  <span class="hljs-string">"price"</span>: <span class="hljs-number">5929</span>,
+  <span class="hljs-string">"description"</span>: <span class="hljs-string">"La Mi Band tiene todo lo necesario para acompañarte en tu rutina."</span>,
+  <span class="hljs-string">"image"</span>: <span class="hljs-string">"https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp"</span>,
+  <span class="hljs-string">"category"</span>: <span class="hljs-string">"Electrónica"</span>,
+  <span class="hljs-string">"store"</span>: null,
+  <span class="hljs-string">"__v"</span>: <span class="hljs-number">0</span>
+}
+*/
+</code></pre>
+<h3 id="deleting-a-product">Deleting a product</h3>
+<pre><code class="lang-js">fetch(<span class="hljs-string">"https://fakestoreapi.com/products/61a429e8dc4c574aa8c6bde7"</span>, {
+  method: <span class="hljs-string">"<span class="hljs-keyword">DELETE</span>"</span>,
+});
+</code></pre>
+<h2 id="all-available-routes">All available routes</h2>
+<h3 id="products">Products</h3>
+<pre><code class="lang-js"><span class="hljs-attr">fields:</span>
+{
+<span class="hljs-attr">    _id:</span>ObjectId,
+<span class="hljs-attr">    title:</span> {
+<span class="hljs-attr">        type:</span> String,
+<span class="hljs-attr">        required:</span> <span class="hljs-literal">true</span>
+    },
+<span class="hljs-attr">    price:</span> {
+<span class="hljs-attr">        type:</span> Number,
+<span class="hljs-attr">        required:</span> <span class="hljs-literal">true</span>
+    },
+<span class="hljs-attr">    description:</span> String,
+<span class="hljs-attr">    image:</span> String,
+<span class="hljs-attr">    gallery:</span> [String],
+<span class="hljs-attr">    category:</span> String,
+<span class="hljs-attr">    mostwanted:</span> {
+<span class="hljs-attr">        type:</span> Boolean,
+<span class="hljs-attr">        default:</span> <span class="hljs-literal">false</span>
+    },
+<span class="hljs-attr">    store:</span>{
+<span class="hljs-attr">        type:</span>schema.Types.ObjectId,
+<span class="hljs-attr">        ref:</span>Store,
+<span class="hljs-attr">        required:</span><span class="hljs-literal">false</span>
+    },
+}
+</code></pre>
+<p>GET:</p>
+<ul>
+<li>/products (get all products)</li>
+<li>/products/:id (get specific product based on id)</li>
+</ul>
+<p>POST:</p>
+<ul>
+<li>/products</li>
+<li>/products/new</li>
+</ul>
+<p>-PUT,PATCH</p>
+<ul>
+<li>/products/:id</li>
+<li>/products/:id/edit</li>
+</ul>
+<p>-DELETE</p>
+<ul>
+<li>/products/:id</li>
+<li>/products/:id/edit</li>
+</ul>
+<h3 id="store">Store</h3>
+<pre><code class="lang-js"><span class="hljs-attr">fields:</span>
+{
+<span class="hljs-attr">    email:</span>{
+<span class="hljs-attr">        type:</span>String,
+<span class="hljs-attr">        required:</span><span class="hljs-literal">false</span>
+    },
+<span class="hljs-attr">    name:</span>{
+<span class="hljs-attr">        type:</span>String,
+<span class="hljs-attr">        required:</span><span class="hljs-literal">true</span>
+    },
+<span class="hljs-attr">    address:</span>{
+<span class="hljs-attr">        city:</span>String,
+<span class="hljs-attr">        street:</span>String,
+<span class="hljs-attr">        number:</span>Number,
+<span class="hljs-attr">        zipcode:</span>String,
+<span class="hljs-attr">        geolocation:</span>{
+<span class="hljs-attr">            lat:</span>String,
+<span class="hljs-attr">            long:</span>String
+        }
+    },
+<span class="hljs-attr">    phone:</span>String
+}
+</code></pre>
+<p>GET:</p>
+<ul>
+<li>/stores (get all stores)</li>
+<li>/stores/:id (get specific store based on id)</li>
+</ul>
+<p>POST:</p>
+<ul>
+<li>/stores</li>
+<li>/stores/new</li>
+</ul>
+<p>PUT,PATCH:</p>
+<ul>
+<li>/stores/:id</li>
+<li>/stores/:id/new</li>
+</ul>
