@@ -15,12 +15,11 @@ so I decided to create this simple web service with NodeJs(express) and MongoDB 
 
 ## Resources
 
-There are 4 main resources need in shopping prototypes:
+There are 2 main resources need in shopping prototypes:
 
 - Products https://fakestoreapi.com/products
-- Carts https://fakestoreapi.com/carts
-- Users https://fakestoreapi.com/users
-- Login Token https://fakestoreapi.com/auth/login
+- Atores https://fakestoreapi.com/stores
+
 
 ### New! "Rating" (includes rate and count) has been added to each product object!
 
@@ -39,7 +38,7 @@ fetch("https://fakestoreapi.com/products")
 ### Get a single product
 
 ```js
-fetch("https://fakestoreapi.com/products/1")
+fetch("https://fakestoreapi.com/products/6191cb5ec654f145d4326b85")
   .then((res) => res.json())
   .then((json) => console.log(json));
 ```
@@ -50,11 +49,13 @@ fetch("https://fakestoreapi.com/products/1")
 fetch("https://fakestoreapi.com/products", {
   method: "POST",
   body: JSON.stringify({
-    title: "test product",
-    price: 13.5,
-    description: "lorem ipsum set",
-    image: "https://i.pravatar.cc",
-    category: "electronic",
+    "title": "Xiaomi Mi Smart Band 6",
+    "price": 5929,
+    "description": "La Mi Band tiene todo lo necesario para acompañarte en tu rutina.",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+    "gallery": ["https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp","https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp","https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp" ],
+    "category": "Electrónica",
+    "mostwanted": false
   }),
 })
   .then((res) => res.json())
@@ -62,29 +63,43 @@ fetch("https://fakestoreapi.com/products", {
 
 /* will return
 {
- id:31,
- title:'...',
- price:'...',
- category:'...',
- description:'...',
- image:'...'
+  "gallery": [
+    "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+    "https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp",
+    "https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"
+  ],
+  "mostwanted": false,
+  "_id": "61a429e8dc4c574aa8c6bde7",
+  "title": "Xiaomi Mi Smart Band 6",
+  "price": 5929,
+  "description": "La Mi Band tiene todo lo necesario para acompañarte en tu rutina.",
+  "image": "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+  "category": "Electrónica",
+  "store": null,
+  "__v": 0
 }
 */
 ```
-
-Note: Posted data will not really insert into the database and just return a fake id.
 
 ### Updating a product
 
 ```js
-fetch("https://fakestoreapi.com/products/7", {
+fetch("https://fakestoreapi.com/products/61a429e8dc4c574aa8c6bde7", {
   method: "PUT",
   body: JSON.stringify({
-    title: "test product",
-    price: 13.5,
-    description: "lorem ipsum set",
-    image: "https://i.pravatar.cc",
-    category: "electronic",
+    "gallery": [
+      "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+      "https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp",
+      "https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"
+    ],
+    "mostwanted": false,
+    "_id": "61a429e8dc4c574aa8c6bde7",
+    "title": "Xiaomi Mi Smart Band 6",
+    "price": 5929,
+    "description": "La Mi Band tiene todo lo necesario para acompañarte en tu rutina.",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+    "category": "Electrónica",
+    "store": "61a42ba51648966e9473df6f"
   }),
 })
   .then((res) => res.json())
@@ -92,63 +107,30 @@ fetch("https://fakestoreapi.com/products/7", {
 
 /* will return
 {
-    id:7,
-    title: 'test product',
-    price: 13.5,
-    description: 'lorem ipsum set',
-    image: 'https://i.pravatar.cc',
-    category: 'electronic'
+  "gallery": [
+    "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+    "https://http2.mlstatic.com/D_NQ_NP_701375-MLA46165064140_052021-O.webp",
+    "https://http2.mlstatic.com/D_NQ_NP_2X_696269-MLA46165064141_052021-F.webp"
+  ],
+  "mostwanted": false,
+  "_id": "61a429e8dc4c574aa8c6bde7",
+  "title": "Xiaomi Mi Smart Band 6",
+  "price": 5929,
+  "description": "La Mi Band tiene todo lo necesario para acompañarte en tu rutina.",
+  "image": "https://http2.mlstatic.com/D_NQ_NP_917772-MLA46164931649_052021-O.webp",
+  "category": "Electrónica",
+  "store": null,
+  "__v": 0
 }
 */
 ```
-
-```js
-fetch("https://fakestoreapi.com/products/8", {
-  method: "PATCH",
-  body: JSON.stringify({
-    title: "test product",
-    price: 13.5,
-    description: "lorem ipsum set",
-    image: "https://i.pravatar.cc",
-    category: "electronic",
-  }),
-})
-  .then((res) => res.json())
-  .then((json) => console.log(json));
-
-/* will return
-{
-    id:8,
-    title: 'test product',
-    price: 13.5,
-    description: 'lorem ipsum set',
-    image: 'https://i.pravatar.cc',
-    category: 'electronic'
-}
-*/
-```
-
-Note: Edited data will not really be updated into the database.
 
 ### Deleting a product
 
 ```js
-fetch("https://fakestoreapi.com/products/8", {
+fetch("https://fakestoreapi.com/products/61a429e8dc4c574aa8c6bde7", {
   method: "DELETE",
 });
-```
-
-Nothing will delete on the database.
-
-### Sort and Limit
-
-You can use query string to limit results or sort by asc|desc
-
-```js
-// Will return all the posts that belong to the first user
-fetch("https://fakestoreapi.com/products?limit=3&sort=desc")
-  .then((res) => res.json())
-  .then((json) => console.log(json));
 ```
 
 ## All available routes
@@ -158,92 +140,72 @@ fetch("https://fakestoreapi.com/products?limit=3&sort=desc")
 ```js
 fields:
 {
-    id:Number,
-    title:String,
-    price:Number,
-    category:String,
-    description:String,
-    image:String
+    _id:ObjectId,
+    title: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    description: String,
+    image: String,
+    gallery: [String],
+    category: String,
+    mostwanted: {
+        type: Boolean,
+        default: false
+    },
+    store:{
+        type:schema.Types.ObjectId,
+        ref:Store,
+        required:false
+    },
 }
 ```
 
 GET:
 
 - /products (get all products)
-- /products/1 (get specific product based on id)
-- /products?limit=5 (limit return results )
-- /products?sort=desc (asc|desc get products in ascending or descending orders (default to asc))
-- /products/products/categories (get all categories)
-- /products/category/jewelery (get all products in specific category)
-- /products/category/jewelery?sort=desc (asc|desc get products in ascending or descending orders (default to asc))
+- /products/:id (get specific product based on id)
 
 POST:
 
 - /products
+- /products/new
 
 -PUT,PATCH
 
-- /products/1
+- /products/:id
+- /products/:id/edit
 
 -DELETE
 
-- /products/1
+- /products/:id
+- /products/:id/edit
 
-### Carts
-
-```js
-fields:
-{
-    id:Number,
-    userId:Number,
-    date:Date,
-    products:[{productId:Number,quantity:Number}]
-}
-```
-
-GET:
-
-- /carts (get all carts)
-- /carts/1 (get specific cart based on id)
-- /carts?startdate=2020-10-03&enddate=2020-12-12 (get carts in date range)
-- /carts/user/1 (get a user cart)
-- /carts/user/1?startdate=2020-10-03&enddate=2020-12-12 (get user carts in date range)
-- /carts?limit=5 (limit return results )
-- /carts?sort=desc (asc|desc get carts in ascending or descending orders (default to asc))
-
-POST:
-
-- /carts
-
-PUT,PATCH:
-
-- /carts/1
-
-DELETE:
-
-- /carts/1
-
-### Users
+### Store
 
 ```js
 fields:
 {
-    id:20,
-    email:String,
-    username:String,
-    password:String,
+    email:{
+        type:String,
+        required:false
+    },
     name:{
-        firstname:String,
-        lastname:String
-        },
+        type:String,
+        required:true
+    },
     address:{
-    city:String,
-    street:String,
-    number:Number,
-    zipcode:String,
-    geolocation:{
-        lat:String,
-        long:String
+        city:String,
+        street:String,
+        number:Number,
+        zipcode:String,
+        geolocation:{
+            lat:String,
+            long:String
         }
     },
     phone:String
@@ -252,39 +214,15 @@ fields:
 
 GET:
 
-- /users (get all users)
-- /users/1 (get specific user based on id)
-- /users?limit=5 (limit return results )
-- /users?sort=desc (asc|desc get users in ascending or descending orders (default to asc))
+- /stores (get all stores)
+- /stores/:id (get specific store based on id)
 
 POST:
 
-- /users
+- /stores
+- /stores/new
 
 PUT,PATCH:
 
-- /users/1
-
-DELETE:
-
-- /users/1
-
-### Auth
-
-```js
-fields:
-{
-    username:String,
-    password:String
-}
-```
-
-POST:
-
-- /auth/login
-
-## ToDo
-
-- Add graphql support
-- Add pagination
-- Add another language support
+- /stores/:id
+- /stores/:id/new
