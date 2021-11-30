@@ -10,6 +10,11 @@ const storeSchema = new schema({
         type:String,
         required:true
     },
+    logo: {
+        type:String,
+        required:false,
+        default:null
+    },
     address:{
         city:String,
         street:String,
