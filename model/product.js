@@ -19,8 +19,14 @@ const productSchema = new schema({
         type: Boolean,
         default: false
     },
+    stock: {
+        type: Number,
+        required: false,
+        default:0,
+    },
     store:{
         type:schema.Types.ObjectId,
+        default:null,
         ref:Store,
         required:false
     },
