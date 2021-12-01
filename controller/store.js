@@ -48,6 +48,7 @@ module.exports.addStore = (req, res) => {
           long: req.body.address?.geolocation?.long || null
         }
       },
+      logo: req.body.logo || null,
       phone: req.body.phone || null
     })
     store.save()
@@ -80,6 +81,7 @@ module.exports.editStore = (req, res) => {
             long: req.body.address?.geolocation?.long || null
           }
         };
+        store.logo = req.body.logo || null,
         store.phone = req.body.phone || store.phone;
 
         store.save().then(store => res.json(store))
