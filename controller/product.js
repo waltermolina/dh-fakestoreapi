@@ -115,7 +115,8 @@ module.exports.addProduct = (req, res) => {
       gallery: req.body.gallery || [],
       category: req.body.category || null,
       mostwanted: req.body.mostwanted || false,
-      store: req.body.store || null
+      store: req.body.store || null, 
+      stock: req.body.stock || null
     });
     product.save()
       .then(product => res.json(product))
@@ -140,7 +141,8 @@ module.exports.editProduct = (req, res) => {
         gallery: req.body.gallery || [],
         category: req.body.category || null,
         mostwanted: req.body.mostwanted || false,
-        store: req.body.store || null
+        store: req.body.store || null, 
+        stock: req.body.stock || null
       },
       (err, data) => {
         if (err) {
